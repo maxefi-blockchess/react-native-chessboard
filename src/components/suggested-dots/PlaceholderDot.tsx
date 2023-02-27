@@ -20,10 +20,10 @@ type PlaceholderDotProps = {
 
 const PlaceholderDot: React.FC<PlaceholderDotProps> = React.memo(
   ({ x, y, selectableSquares, moveTo }) => {
-    const { pieceSize } = useChessboardProps();
+    const { pieceSize, colors } = useChessboardProps();
     const { toPosition, toTranslation } = useReversePiecePosition();
-
     const currentSquare = toPosition({ x: x * pieceSize, y: y * pieceSize });
+    const { suggested } = colors;
     const translation = useMemo(
       () => toTranslation(currentSquare),
       [currentSquare, toTranslation]
@@ -40,7 +40,8 @@ const PlaceholderDot: React.FC<PlaceholderDotProps> = React.memo(
 
     const rPlaceholderStyle = useAnimatedStyle(() => {
       const canBeSelected = isSelectable.value;
-      return { opacity: withTiming(canBeSelected ? 0.15 : 0) };
+
+      return { opacity: withTiming(canBeSelected ? 1 : 0) };
     }, []);
 
     return (
@@ -54,7 +55,6 @@ const PlaceholderDot: React.FC<PlaceholderDotProps> = React.memo(
           styles.placeholderContainer,
           {
             width: pieceSize,
-            padding: pieceSize / 3.2,
             transform: [
               { translateX: translation.x },
               { translateY: translation.y },
@@ -64,8 +64,8 @@ const PlaceholderDot: React.FC<PlaceholderDotProps> = React.memo(
       >
         <Animated.View
           style={[
-            { borderRadius: pieceSize },
             styles.placeholder,
+            { borderColor: suggested },
             rPlaceholderStyle,
           ]}
         />
@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     flex: 1,
-    backgroundColor: 'black',
-    opacity: 0.2,
+    borderWidth: 0.5,
+    opacity: 1,
   },
 });
 

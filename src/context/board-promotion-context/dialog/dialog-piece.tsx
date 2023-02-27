@@ -70,6 +70,12 @@ const DialogPiece: React.FC<DialogPieceProps> = React.memo(
                 width,
                 borderLeftWidth: index === 3 || index === 2 ? 1 : 0,
                 borderTopWidth: index % 2 !== 0 ? 1 : 0,
+                borderTopColor:
+                  index % 2 !== 0 ? 'rgba(255,255,255,0.1)' : 'transparent',
+                borderLeftColor:
+                  index === 3 || index === 2
+                    ? 'rgba(255,255,255,0.1)'
+                    : 'transparent',
               } as const,
               styles.pieceContainer,
             ]}
