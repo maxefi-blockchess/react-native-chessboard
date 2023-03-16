@@ -130,4 +130,4 @@ export {
   DEFAULT_BOARD_SIZE,
 };
 // eslint-disable-next-line no-undef
-export type { ChessboardProps };
+export type { ChessboardProps, ChessMoveInfo };
