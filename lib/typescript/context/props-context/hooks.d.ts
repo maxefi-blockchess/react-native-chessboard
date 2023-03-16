@@ -2,11 +2,13 @@ export declare const useChessboardProps: () => import("./index").ChessboardProps
     pieceSize: number;
 } & {
     colors: Required<{
-        white: string;
-        black: string;
+        white?: string | undefined;
+        black?: string | undefined;
         lastMoveHighlight?: string | undefined;
         checkmateHighlight?: string | undefined;
         promotionPieceButton?: string | undefined;
+        suggested?: string | undefined;
+        text?: string | undefined;
     }>;
     durations: Required<{
         move?: number | undefined;
