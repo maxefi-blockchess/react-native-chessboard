@@ -13,6 +13,7 @@ export declare type ChessboardRef = {
     highlight: (_: {
         square: Square;
         color?: string;
+        borderColor?: string;
     }) => void;
     resetAllHighlightedSquares: () => void;
     resetBoard: (fen?: string) => void;

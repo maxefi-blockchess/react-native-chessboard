@@ -8,6 +8,7 @@ export declare type HighlightedSquareRefType = {
     reset: () => void;
     highlight: (_?: {
         backgroundColor?: string;
+        borderColor?: string;
     }) => void;
 };
 declare const HighlightedSquare: React.MemoExoticComponent<React.ForwardRefExoticComponent<HighlightedSquareProps & React.RefAttributes<HighlightedSquareRefType>>>;
