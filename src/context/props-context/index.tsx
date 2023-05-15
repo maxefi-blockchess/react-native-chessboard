@@ -64,6 +64,10 @@ type ChessboardProps = {
    * Useful if you want to customise the default durations used in the chessboard (in milliseconds).
    */
   durations?: ChessboardDurationsType;
+  /**
+   * Indicates which color is being played by the user. Selected color is rendered in the bottom of the board.
+   */
+  playersColor?: Move['color'];
 };
 
 type ChessboardContextType = ChessboardProps &
@@ -98,6 +102,7 @@ const defaultChessboardProps: ChessboardContextType = {
   withNumbers: true,
   boardSize: DEFAULT_BOARD_SIZE,
   pieceSize: DEFAULT_BOARD_SIZE / 8,
+  playersColor: 'w',
 };
 
 const ChessboardPropsContext = React.createContext<ChessboardContextType>(

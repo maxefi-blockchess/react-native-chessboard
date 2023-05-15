@@ -12,7 +12,8 @@ const HighlightedSquares: React.FC = React.memo(() => {
   const chess = useChessEngine();
   const board = useMemo(() => chess.board(), [chess]);
   const { pieceSize } = useChessboardProps();
-  const { toPosition, toTranslation } = useReversePiecePosition();
+  const { toPosition, toTranslation, calculatePosition } =
+    useReversePiecePosition();
   const refs = useSquareRefs();
 
   return (
@@ -23,12 +24,21 @@ const HighlightedSquares: React.FC = React.memo(() => {
     >
       {board.map((row, y) =>
         row.map((_, x) => {
-          const square = toPosition({ x: x * pieceSize, y: y * pieceSize });
+          const { x: calculatedX, y: calculatedY } = calculatePosition({
+            x,
+            y,
+          });
+
+          const square = toPosition({
+            x: calculatedX * pieceSize,
+            y: calculatedY * pieceSize,
+          });
+
           const translation = toTranslation(square);
 
           return (
             <HighlightedSquare
-              key={`${x}-${y}`}
+              key={`${calculatedX}-${calculatedY}`}
               ref={refs?.current?.[square]}
               style={[
                 styles.highlightedSquare,
