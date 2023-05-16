@@ -73,5 +73,5 @@ const ChessboardContainerComponent = React.forwardRef<
 const ChessboardContainer = React.memo(ChessboardContainerComponent);
 
 export { DEFAULT_BOARD_SIZE };
-export type { ChessboardRef, ChessboardProps, ChessMoveInfo };
+export type { ChessboardRef, ChessboardProps, ChessMoveInfo, ChessboardState };
 export default ChessboardContainer;
