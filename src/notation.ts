@@ -9,22 +9,25 @@ const useReversePiecePosition = () => {
   const { pieceSize, playersColor } = useChessboardProps();
   const board = useBoard();
 
-  const isPlayingWhite = useMemo(() => playersColor === 'w', [playersColor]);
+  const isWhitePiecePosition = useMemo(
+    () => playersColor === 'w',
+    [playersColor]
+  );
 
   const calculateCol = useCallback(
     (col: number) => {
       'worklet';
-      return isPlayingWhite ? 97 + col : 104 - col;
+      return isWhitePiecePosition ? 97 + col : 104 - col;
     },
-    [isPlayingWhite]
+    [isWhitePiecePosition]
   );
 
   const calculateRow = useCallback(
     (row: number) => {
       'worklet';
-      return isPlayingWhite ? 8 - row : row + 1;
+      return isWhitePiecePosition ? 8 - row : row + 1;
     },
-    [isPlayingWhite]
+    [isWhitePiecePosition]
   );
 
   const calculatePosition = useCallback(
@@ -32,7 +35,7 @@ const useReversePiecePosition = () => {
       'worklet';
       const rowLendth = board[0].length;
 
-      if (isPlayingWhite) {
+      if (isWhitePiecePosition) {
         return { x, y };
       }
 
@@ -41,7 +44,7 @@ const useReversePiecePosition = () => {
         y: board.length - 1 - y,
       };
     },
-    [board, isPlayingWhite]
+    [board, isWhitePiecePosition]
   );
 
   const toTranslation = useCallback(
@@ -54,7 +57,7 @@ const useReversePiecePosition = () => {
         throw new Error('Invalid notation: ' + to);
       }
 
-      const x = isPlayingWhite
+      const x = isWhitePiecePosition
         ? col.charCodeAt(0) - 'a'.charCodeAt(0)
         : 'h'.charCodeAt(0) - col.charCodeAt(0);
 
@@ -63,7 +66,7 @@ const useReversePiecePosition = () => {
         y: parseInt(row, 10) - 1,
       };
 
-      const y = isPlayingWhite
+      const y = isWhitePiecePosition
         ? 7 * pieceSize - indexes.y * pieceSize
         : indexes.y * pieceSize + 1;
 
@@ -72,7 +75,7 @@ const useReversePiecePosition = () => {
         y,
       };
     },
-    [pieceSize, isPlayingWhite]
+    [pieceSize, isWhitePiecePosition]
   );
 
   const toPosition = useCallback(
