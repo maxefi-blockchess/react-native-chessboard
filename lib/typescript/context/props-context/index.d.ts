@@ -60,6 +60,10 @@ declare type ChessboardProps = {
      * Useful if you want to customise the default durations used in the chessboard (in milliseconds).
      */
     durations?: ChessboardDurationsType;
+    /**
+     * Indicates which color is being played by the user. Selected color is rendered in the bottom of the board.
+     */
+    playersColor?: Move['color'];
 };
 declare type ChessboardContextType = ChessboardProps & Required<Pick<ChessboardProps, 'gestureEnabled' | 'withLetters' | 'withNumbers' | 'boardSize'>> & {
     pieceSize: number;

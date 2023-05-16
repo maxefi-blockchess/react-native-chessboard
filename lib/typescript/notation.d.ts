@@ -6,5 +6,11 @@ declare const useReversePiecePosition: () => {
         x: number;
         y: number;
     };
+    calculateCol: (col: number) => number;
+    calculateRow: (row: number) => number;
+    calculatePosition: ({ x, y }: Vector) => {
+        x: number;
+        y: number;
+    };
 };
 export { useReversePiecePosition };
