@@ -46,7 +46,7 @@ const BoardOperationsContextProviderComponent = React.forwardRef<
     onMove: onChessboardMoveCallback,
     colors: { checkmateHighlight },
   } = useChessboardProps();
-  const { toTranslation } = useReversePiecePosition();
+  const { toTranslation, calculatePosition } = useReversePiecePosition();
   const selectableSquares = useSharedValue<Square[]>([]);
   const selectedSquare = useSharedValue<Square | null>(null);
   const { showPromotionDialog } = useBoardPromotion();
@@ -73,7 +73,13 @@ const BoardOperationsContextProviderComponent = React.forwardRef<
       const val = toTranslation(from);
       const x = Math.floor(val.x / pieceSize);
       const y = Math.floor(val.y / pieceSize);
-      const piece = chess.board()[y][x];
+
+      const { x: calculatedX, y: calculatedY } = calculatePosition({
+        x,
+        y,
+      });
+
+      const piece = chess.board()[calculatedY][calculatedX];
 
       return (
         piece?.type === chess.PAWN &&
@@ -81,7 +87,7 @@ const BoardOperationsContextProviderComponent = React.forwardRef<
           (to.includes('1') && piece.color === chess.BLACK))
       );
     },
-    [chess, pieceSize, toTranslation]
+    [chess, pieceSize, toTranslation, calculatePosition]
   );
 
   const findKing = useCallback(
