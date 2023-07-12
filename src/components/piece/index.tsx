@@ -171,25 +171,19 @@ const Piece = React.memo(
           x: translateX.value,
           y: translateY.value,
         });
-        // console.log({ currentSquare });
 
         const previousTappedSquare = selectedSquare.value;
-        // console.log({ previousTappedSquare });
         const move =
           previousTappedSquare &&
           validateMove(previousTappedSquare, currentSquare);
-        // console.log({ move });
 
         if (move) {
-          console.log('2');
           runOnJS(globalMoveTo)(move);
           return;
         }
-        console.log({ gestureEnabledValue: gestureEnabled.value });
         if (!gestureEnabled.value) return;
         scale.value = withTiming(1.2);
         borderColor.value = withTiming(0);
-        console.log('3');
         onStartTap(square);
       }, [
         borderColor,
@@ -210,7 +204,6 @@ const Piece = React.memo(
         .onBegin(() => {
           offsetX.value = translateX.value;
           offsetY.value = translateY.value;
-          console.log('1');
           runOnJS(handleOnBegin)();
         })
         .onStart(() => {
