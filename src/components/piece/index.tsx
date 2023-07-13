@@ -44,10 +44,14 @@ const Piece = React.memo(
         pieceSize,
         durations: { move: moveDuration },
         gestureEnabled: gestureEnabledFromChessboardProps,
+        playersColor,
       } = useChessboardProps();
 
       const gestureEnabled = useDerivedValue(
-        () => turn.value === id.charAt(0) && gestureEnabledFromChessboardProps,
+        () =>
+          turn.value === id.charAt(0) &&
+          turn.value === playersColor &&
+          gestureEnabledFromChessboardProps,
         [id, gestureEnabledFromChessboardProps]
       );
 
