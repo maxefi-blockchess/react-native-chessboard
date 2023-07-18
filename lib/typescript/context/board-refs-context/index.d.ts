@@ -1,4 +1,4 @@
-import type { Move, Square } from 'chess.js';
+import type { Move, PieceType, Square } from 'chess.js';
 import React from 'react';
 import { ChessboardState } from '../../helpers/get-chessboard-state';
 import type { ChessPieceRef } from '../../components/piece';
@@ -9,6 +9,7 @@ export declare type ChessboardRef = {
     move: (_: {
         from: Square;
         to: Square;
+        promotionPiece?: PieceType;
     }) => Promise<Move | undefined> | undefined;
     highlight: (_: {
         square: Square;

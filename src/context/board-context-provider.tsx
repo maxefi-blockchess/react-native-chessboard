@@ -48,14 +48,14 @@ const ChessboardContextProviderComponent = React.forwardRef<
       <BoardPromotionContextProvider>
         <ChessEngineContext.Provider value={chess}>
           <BoardSetterContext.Provider value={setBoard}>
-            <BoardRefsContextProvider ref={chessboardRef}>
-              <BoardOperationsContextProvider
-                ref={boardOperationsRef}
-                controller={chessboardController}
-              >
+            <BoardOperationsContextProvider
+              ref={boardOperationsRef}
+              controller={chessboardController}
+            >
+              <BoardRefsContextProvider ref={chessboardRef}>
                 {children}
-              </BoardOperationsContextProvider>
-            </BoardRefsContextProvider>
+              </BoardRefsContextProvider>
+            </BoardOperationsContextProvider>
           </BoardSetterContext.Provider>
         </ChessEngineContext.Provider>
       </BoardPromotionContextProvider>

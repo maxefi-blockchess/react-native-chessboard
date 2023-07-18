@@ -1,4 +1,4 @@
-import type { Move, Square } from 'chess.js';
+import type { Move, PieceType, Square } from 'chess.js';
 import React, {
   createContext,
   useCallback,
@@ -14,6 +14,7 @@ import type { HighlightedSquareRefType } from '../../components/highlighted-squa
 
 import { useChessEngine } from '../chess-engine-context/hooks';
 import { useSetBoard } from '../board-context/hooks';
+import { useBoardOperations } from '../board-operations-context/hooks';
 
 const PieceRefsContext = createContext<React.MutableRefObject<Record<
   Square,
@@ -29,6 +30,7 @@ export type ChessboardRef = {
   move: (_: {
     from: Square;
     to: Square;
+    promotionPiece?: PieceType;
   }) => Promise<Move | undefined> | undefined;
   highlight: (_: {
     square: Square;
@@ -47,6 +49,7 @@ const BoardRefsContextProviderComponent = React.forwardRef<
   const chess = useChessEngine();
   const board = chess.board();
   const setBoard = useSetBoard();
+  const { moveProgrammatically } = useBoardOperations();
 
   // There must be a better way of doing this.
   const generateBoardRefs = useCallback(() => {
@@ -79,7 +82,11 @@ const BoardRefsContextProviderComponent = React.forwardRef<
   useImperativeHandle(
     ref,
     () => ({
-      move: ({ from, to }) => {
+      move: ({ from, to, promotionPiece }) => {
+        if (promotionPiece) {
+          moveProgrammatically(from, to, promotionPiece);
+        }
+
         return pieceRefs?.current?.[from].current?.moveTo?.(to);
       },
       highlight: ({ square, color, borderColor }) => {
@@ -109,7 +116,7 @@ const BoardRefsContextProviderComponent = React.forwardRef<
         setBoard(chess.board());
       },
     }),
-    [board, chess, setBoard]
+    [moveProgrammatically, board, chess, setBoard]
   );
 
   return (
