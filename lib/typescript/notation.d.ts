@@ -12,5 +12,6 @@ declare const useReversePiecePosition: () => {
         x: number;
         y: number;
     };
+    isWhitePiecePosition: boolean;
 };
 export { useReversePiecePosition };

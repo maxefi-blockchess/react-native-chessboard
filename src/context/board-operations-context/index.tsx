@@ -52,7 +52,8 @@ const BoardOperationsContextProviderComponent = React.forwardRef<
     colors: { checkmateHighlight },
     playersColor,
   } = useChessboardProps();
-  const { toTranslation, calculatePosition } = useReversePiecePosition();
+  const { toTranslation, calculatePosition, isWhitePiecePosition } =
+    useReversePiecePosition();
   const selectableSquares = useSharedValue<Square[]>([]);
   const selectedSquare = useSharedValue<Square | null>(null);
   const { showPromotionDialog } = useBoardPromotion();
@@ -226,10 +227,28 @@ const BoardOperationsContextProviderComponent = React.forwardRef<
           return square;
         }
 
+        const splittedSquareValue = splittedSquare[splittedSquare.length - 1];
+
+        if (splittedSquareValue === 'O-O') {
+          if (isWhitePiecePosition) {
+            return 'Kg1' as Square;
+          }
+
+          return 'Kg8' as Square;
+        }
+
+        if (splittedSquareValue === 'O-O-O') {
+          if (isWhitePiecePosition) {
+            return 'Kc1' as Square;
+          }
+
+          return 'Kc8' as Square;
+        }
+
         return splittedSquare[splittedSquare.length - 1] as Square;
       });
     },
-    [chess, selectableSquares, selectedSquare]
+    [chess, selectableSquares, selectedSquare, isWhitePiecePosition]
   );
 
   const moveTo = useCallback(
