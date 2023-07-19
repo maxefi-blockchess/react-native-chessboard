@@ -1,4 +1,4 @@
-import type { Square } from 'chess.js';
+import type { PieceType, Square } from 'chess.js';
 import React from 'react';
 import type Animated from 'react-native-reanimated';
 import type { ChessboardRef } from '../board-refs-context';
@@ -10,6 +10,7 @@ declare type BoardOperationsContextType = {
     isPromoting: (from: Square, to: Square) => boolean;
     selectedSquare: Animated.SharedValue<Square | null>;
     turn: Animated.SharedValue<'w' | 'b'>;
+    moveProgrammatically: (from: Square, to: Square, promotionPiece?: PieceType) => void;
 };
 declare const BoardOperationsContext: React.Context<BoardOperationsContextType>;
 export declare type BoardOperationsRef = {

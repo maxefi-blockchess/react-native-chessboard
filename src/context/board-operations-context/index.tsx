@@ -25,6 +25,11 @@ type BoardOperationsContextType = {
   isPromoting: (from: Square, to: Square) => boolean;
   selectedSquare: Animated.SharedValue<Square | null>;
   turn: Animated.SharedValue<'w' | 'b'>;
+  moveProgrammatically: (
+    from: Square,
+    to: Square,
+    promotionPiece?: PieceType
+  ) => void;
 };
 
 const BoardOperationsContext = createContext<BoardOperationsContextType>(
@@ -45,6 +50,7 @@ const BoardOperationsContextProviderComponent = React.forwardRef<
     pieceSize,
     onMove: onChessboardMoveCallback,
     colors: { checkmateHighlight },
+    playersColor,
   } = useChessboardProps();
   const { toTranslation, calculatePosition } = useReversePiecePosition();
   const selectableSquares = useSharedValue<Square[]>([]);
@@ -179,14 +185,18 @@ const BoardOperationsContextProviderComponent = React.forwardRef<
         return;
       }
 
-      pieceRefs?.current?.[to]?.current?.enable(false);
-      showPromotionDialog({
-        type: chess.turn(),
-        onSelect: (piece) => {
-          moveProgrammatically(from, to, piece);
-          pieceRefs?.current?.[to]?.current?.enable(true);
-        },
-      });
+      const chessTurn = chess.turn();
+
+      if (chessTurn === playersColor) {
+        pieceRefs?.current?.[to]?.current?.enable(false);
+        showPromotionDialog({
+          type: chessTurn,
+          onSelect: (piece) => {
+            moveProgrammatically(from, to, piece);
+            pieceRefs?.current?.[to]?.current?.enable(true);
+          },
+        });
+      }
     },
     [
       chess,
@@ -197,6 +207,7 @@ const BoardOperationsContextProviderComponent = React.forwardRef<
       selectableSquares,
       selectedSquare,
       showPromotionDialog,
+      playersColor,
     ]
   );
 
@@ -241,6 +252,7 @@ const BoardOperationsContextProviderComponent = React.forwardRef<
       selectedSquare,
       isPromoting,
       turn,
+      moveProgrammatically,
     };
   }, [
     isPromoting,
@@ -250,6 +262,7 @@ const BoardOperationsContextProviderComponent = React.forwardRef<
     selectableSquares,
     selectedSquare,
     turn,
+    moveProgrammatically,
   ]);
 
   return (
