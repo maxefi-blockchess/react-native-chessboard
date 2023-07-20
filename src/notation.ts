@@ -94,6 +94,7 @@ const useReversePiecePosition = () => {
     calculateCol,
     calculateRow,
     calculatePosition,
+    isWhitePiecePosition,
   };
 };
 
