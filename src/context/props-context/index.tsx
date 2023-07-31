@@ -87,8 +87,8 @@ const DEFAULT_BOARD_SIZE = Math.floor(SCREEN_WIDTH / 8) * 8;
 const defaultChessboardProps: ChessboardContextType = {
   gestureEnabled: true,
   colors: {
-    black: '#323232',
-    white: '#4D4D4D',
+    black: 'rgb(39, 40, 40)',
+    white: 'rgb(81, 81, 81)',
     lastMoveHighlight: 'rgba(44, 141, 255, 0.1)',
     checkmateHighlight: '#EE3232',
     promotionPieceButton: 'transparent',
