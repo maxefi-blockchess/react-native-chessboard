@@ -20,6 +20,11 @@ export declare type ChessboardRef = {
     resetBoard: (fen?: string) => void;
     getState: () => ChessboardState;
 };
+export declare type ChessboardContextRef = {
+    findKing: (type: 'wk' | 'bk') => Square | null;
+    checkIsCheckState: () => void;
+    checkIsCheckMateState: () => void;
+};
 declare const BoardRefsContextProvider: React.MemoExoticComponent<React.ForwardRefExoticComponent<{
     children?: React.ReactNode;
 } & React.RefAttributes<ChessboardRef>>>;

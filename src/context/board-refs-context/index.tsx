@@ -42,6 +42,12 @@ export type ChessboardRef = {
   getState: () => ChessboardState;
 };
 
+export type ChessboardContextRef = {
+  findKing: (type: 'wk' | 'bk') => Square | null;
+  checkIsCheckState: () => void;
+  checkIsCheckMateState: () => void;
+};
+
 const BoardRefsContextProviderComponent = React.forwardRef<
   ChessboardRef,
   { children?: React.ReactNode }
