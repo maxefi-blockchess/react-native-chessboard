@@ -12,7 +12,10 @@ import { getChessboardState } from '../../helpers/get-chessboard-state';
 import { useReversePiecePosition } from '../../notation';
 import { useSetBoard } from '../board-context/hooks';
 import { useBoardPromotion } from '../board-promotion-context/hooks';
-import type { ChessboardRef } from '../board-refs-context';
+import type {
+  ChessboardContextRef,
+  ChessboardRef,
+} from '../board-refs-context';
 import { usePieceRefs } from '../board-refs-context/hooks';
 import { useChessEngine } from '../chess-engine-context/hooks';
 import { useChessboardProps } from '../props-context/hooks';
@@ -42,14 +45,17 @@ export type BoardOperationsRef = {
 
 const BoardOperationsContextProviderComponent = React.forwardRef<
   BoardOperationsRef,
-  { controller?: ChessboardRef; children?: React.ReactNode }
->(({ children, controller }, ref) => {
+  {
+    controller?: ChessboardRef;
+    contextController?: ChessboardContextRef;
+    children?: React.ReactNode;
+  }
+>(({ children, controller, contextController }, ref) => {
   const chess = useChessEngine();
   const setBoard = useSetBoard();
   const {
     pieceSize,
     onMove: onChessboardMoveCallback,
-    colors: { checkmateHighlight },
     playersColor,
   } = useChessboardProps();
   const { toTranslation, calculatePosition, isWhitePiecePosition } =
@@ -97,28 +103,6 @@ const BoardOperationsContextProviderComponent = React.forwardRef<
     [chess, pieceSize, toTranslation, calculatePosition]
   );
 
-  const findKing = useCallback(
-    (type: 'wk' | 'bk') => {
-      const board = chess.board();
-      for (let x = 0; x < board.length; x++) {
-        const row = board[x];
-        for (let y = 0; y < row.length; y++) {
-          const col = String.fromCharCode(97 + Math.round(x));
-
-          // eslint-disable-next-line no-shadow
-          const row = `${8 - Math.round(y)}`;
-          const square = `${col}${row}` as Square;
-
-          const piece = chess.get(square);
-          if (piece?.color === type.charAt(0) && piece.type === type.charAt(1))
-            return square;
-        }
-      }
-      return null;
-    },
-    [chess]
-  );
-
   const moveProgrammatically = useCallback(
     (from: Square, to: Square, promotionPiece?: PieceType) => {
       const move = chess.move({
@@ -131,24 +115,8 @@ const BoardOperationsContextProviderComponent = React.forwardRef<
 
       if (move == null) return;
 
-      const isCheck = chess.in_check();
-      const isCheckmate = chess.in_checkmate();
-
-      if (isCheck) {
-        const square = findKing(`${chess.turn()}k`);
-        if (!square) return;
-        controller?.highlight({
-          square,
-          color: 'transparent',
-          borderColor: checkmateHighlight,
-        });
-      }
-
-      if (isCheckmate) {
-        const square = findKing(`${chess.turn()}k`);
-        if (!square) return;
-        controller?.highlight({ square, color: checkmateHighlight });
-      }
+      contextController?.checkIsCheckState();
+      contextController?.checkIsCheckMateState();
 
       onChessboardMoveCallback?.({
         move,
@@ -160,15 +128,7 @@ const BoardOperationsContextProviderComponent = React.forwardRef<
 
       setBoard(chess.board());
     },
-    [
-      checkmateHighlight,
-      chess,
-      controller,
-      findKing,
-      onChessboardMoveCallback,
-      setBoard,
-      turn,
-    ]
+    [chess, contextController, onChessboardMoveCallback, setBoard, turn]
   );
 
   const onMove = useCallback(

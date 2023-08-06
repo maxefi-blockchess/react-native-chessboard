@@ -1,7 +1,7 @@
 import type { PieceType, Square } from 'chess.js';
 import React from 'react';
 import type Animated from 'react-native-reanimated';
-import type { ChessboardRef } from '../board-refs-context';
+import type { ChessboardContextRef, ChessboardRef } from '../board-refs-context';
 declare type BoardOperationsContextType = {
     selectableSquares: Animated.SharedValue<Square[]>;
     onMove: (from: Square, to: Square) => void;
@@ -18,6 +18,7 @@ export declare type BoardOperationsRef = {
 };
 declare const BoardOperationsContextProvider: React.MemoExoticComponent<React.ForwardRefExoticComponent<{
     controller?: ChessboardRef | undefined;
+    contextController?: ChessboardContextRef | undefined;
     children?: React.ReactNode;
 } & React.RefAttributes<BoardOperationsRef>>>;
 export { BoardOperationsContextProvider, BoardOperationsContext };
