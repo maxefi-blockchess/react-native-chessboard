@@ -60,7 +60,6 @@ const Piece = React.memo(
       const isGestureActive = useSharedValue(false);
       const offsetX = useSharedValue(0);
       const offsetY = useSharedValue(0);
-      const scale = useSharedValue(1);
       const borderColor = useSharedValue(1);
       const translateX = useSharedValue(startPosition.x * size);
       const translateY = useSharedValue(startPosition.y * size);
@@ -182,7 +181,6 @@ const Piece = React.memo(
           return;
         }
         if (!gestureEnabled.value) return;
-        scale.value = withTiming(1.2);
         borderColor.value = withTiming(0);
         onStartTap(square);
       }, [
@@ -190,7 +188,6 @@ const Piece = React.memo(
         gestureEnabled.value,
         globalMoveTo,
         onStartTap,
-        scale,
         selectedSquare.value,
         square,
         toPosition,
@@ -222,7 +219,6 @@ const Piece = React.memo(
           );
         })
         .onFinalize(() => {
-          scale.value = withTiming(1);
           borderColor.value = withTiming(1);
         });
 
@@ -247,7 +243,6 @@ const Piece = React.memo(
           transform: [
             { translateX: translateX.value },
             { translateY: translateY.value },
-            { scale: scale.value },
           ],
         };
       });
