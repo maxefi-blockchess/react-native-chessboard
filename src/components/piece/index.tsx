@@ -160,7 +160,7 @@ const Piece = React.memo(
 
       const globalMoveTo = useCallback(
         (move: Move) => {
-          refs?.current?.[move.from].current.moveTo?.(move.to);
+          refs?.current?.[move.from].current?.moveTo?.(move.to);
         },
         [refs]
       );
