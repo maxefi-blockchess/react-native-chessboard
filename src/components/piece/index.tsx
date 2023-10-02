@@ -48,7 +48,7 @@ const Piece = React.memo(
         selectedSquare,
         turn,
         isPieceGestureInProgress,
-        toggleIsPieceGestureInProgress,
+        setIsPieceGestureInProgress,
       } = useBoardOperations();
 
       const [isPieceActive, setIsPieceActive] = useState<boolean>(false);
@@ -213,7 +213,7 @@ const Piece = React.memo(
         .enabled(!isPromoting && pieceEnabled.value)
         .onBegin(() => {
           runOnJS(setIsPieceActive)(true);
-          runOnJS(toggleIsPieceGestureInProgress)();
+          runOnJS(setIsPieceGestureInProgress)(true);
           offsetX.value = translateX.value;
           offsetY.value = translateY.value;
           runOnJS(handleOnBegin)();
@@ -235,7 +235,7 @@ const Piece = React.memo(
         })
         .onFinalize(() => {
           runOnJS(setIsPieceActive)(false);
-          runOnJS(toggleIsPieceGestureInProgress)();
+          runOnJS(setIsPieceGestureInProgress)(false);
           borderColor.value = withTiming(1);
         });
 

@@ -35,7 +35,7 @@ type BoardOperationsContextType = {
     promotionPiece?: PieceType
   ) => void;
   isPieceGestureInProgress: boolean;
-  toggleIsPieceGestureInProgress: () => void;
+  setIsPieceGestureInProgress: (value: boolean) => void;
 };
 
 const BoardOperationsContext = createContext<BoardOperationsContextType>(
@@ -227,11 +227,6 @@ const BoardOperationsContextProviderComponent = React.forwardRef<
     [controller, selectedSquare.value]
   );
 
-  const toggleIsPieceGestureInProgress = useCallback(
-    () => setIsPieceGestureInProgress(!isPieceGestureInProgress),
-    [isPieceGestureInProgress]
-  );
-
   const value = useMemo(() => {
     return {
       onMove,
@@ -243,7 +238,7 @@ const BoardOperationsContextProviderComponent = React.forwardRef<
       turn,
       moveProgrammatically,
       isPieceGestureInProgress,
-      toggleIsPieceGestureInProgress,
+      setIsPieceGestureInProgress,
     };
   }, [
     isPromoting,
@@ -255,7 +250,7 @@ const BoardOperationsContextProviderComponent = React.forwardRef<
     turn,
     moveProgrammatically,
     isPieceGestureInProgress,
-    toggleIsPieceGestureInProgress,
+    setIsPieceGestureInProgress,
   ]);
 
   return (
