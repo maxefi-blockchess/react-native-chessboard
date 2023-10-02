@@ -11,6 +11,8 @@ declare type BoardOperationsContextType = {
     selectedSquare: Animated.SharedValue<Square | null>;
     turn: Animated.SharedValue<'w' | 'b'>;
     moveProgrammatically: (from: Square, to: Square, promotionPiece?: PieceType) => void;
+    isPieceGestureInProgress: boolean;
+    toggleIsPieceGestureInProgress: () => void;
 };
 declare const BoardOperationsContext: React.Context<BoardOperationsContextType>;
 export declare type BoardOperationsRef = {

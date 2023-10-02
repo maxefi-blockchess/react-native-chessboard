@@ -1,5 +1,10 @@
 import type { Move, Square } from 'chess.js';
-import React, { useCallback, useImperativeHandle } from 'react';
+import React, {
+  useCallback,
+  useImperativeHandle,
+  useMemo,
+  useState,
+} from 'react';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   runOnJS,
@@ -37,8 +42,16 @@ const Piece = React.memo(
       const refs = usePieceRefs();
       const pieceEnabled = useSharedValue(true);
       const { isPromoting } = useBoardPromotion();
-      const { onSelectPiece, onMove, selectedSquare, turn } =
-        useBoardOperations();
+      const {
+        onSelectPiece,
+        onMove,
+        selectedSquare,
+        turn,
+        isPieceGestureInProgress,
+        toggleIsPieceGestureInProgress,
+      } = useBoardOperations();
+
+      const [isPieceActive, setIsPieceActive] = useState<boolean>(false);
 
       const {
         pieceSize,
@@ -196,9 +209,11 @@ const Piece = React.memo(
         validateMove,
       ]);
 
-      const gesture = Gesture.Pan()
+      const gestureProgress = Gesture.Pan()
         .enabled(!isPromoting && pieceEnabled.value)
         .onBegin(() => {
+          runOnJS(setIsPieceActive)(true);
+          runOnJS(toggleIsPieceGestureInProgress)();
           offsetX.value = translateX.value;
           offsetY.value = translateY.value;
           runOnJS(handleOnBegin)();
@@ -219,8 +234,25 @@ const Piece = React.memo(
           );
         })
         .onFinalize(() => {
+          runOnJS(setIsPieceActive)(false);
+          runOnJS(toggleIsPieceGestureInProgress)();
           borderColor.value = withTiming(1);
         });
+
+      const gestureDisabled = Gesture.Pan().enabled(false);
+
+      const gesture = useMemo(() => {
+        if (isPieceGestureInProgress && !isPieceActive) {
+          return gestureDisabled;
+        }
+
+        return gestureProgress;
+      }, [
+        isPieceGestureInProgress,
+        isPieceActive,
+        gestureProgress,
+        gestureDisabled,
+      ]);
 
       const style = useAnimatedStyle(() => {
         return {

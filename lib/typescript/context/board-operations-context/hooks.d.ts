@@ -13,5 +13,7 @@ declare const useBoardOperations: () => {
         value: "b" | "w";
     };
     moveProgrammatically: (from: import("chess.js").Square, to: import("chess.js").Square, promotionPiece?: import("chess.js").PieceType | undefined) => void;
+    isPieceGestureInProgress: boolean;
+    toggleIsPieceGestureInProgress: () => void;
 };
 export { useBoardOperations };
