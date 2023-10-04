@@ -4,6 +4,7 @@ import React, {
   useCallback,
   useImperativeHandle,
   useMemo,
+  useState,
 } from 'react';
 import type Animated from 'react-native-reanimated';
 import { useSharedValue } from 'react-native-reanimated';
@@ -33,6 +34,8 @@ type BoardOperationsContextType = {
     to: Square,
     promotionPiece?: PieceType
   ) => void;
+  isPieceGestureInProgress: boolean;
+  setIsPieceGestureInProgress: (value: boolean) => void;
 };
 
 const BoardOperationsContext = createContext<BoardOperationsContextType>(
@@ -64,6 +67,8 @@ const BoardOperationsContextProviderComponent = React.forwardRef<
   const selectedSquare = useSharedValue<Square | null>(null);
   const { showPromotionDialog } = useBoardPromotion();
   const pieceRefs = usePieceRefs();
+  const [isPieceGestureInProgress, setIsPieceGestureInProgress] =
+    useState<boolean>(false);
 
   const turn = useSharedValue(chess.turn());
 
@@ -232,6 +237,8 @@ const BoardOperationsContextProviderComponent = React.forwardRef<
       isPromoting,
       turn,
       moveProgrammatically,
+      isPieceGestureInProgress,
+      setIsPieceGestureInProgress,
     };
   }, [
     isPromoting,
@@ -242,6 +249,8 @@ const BoardOperationsContextProviderComponent = React.forwardRef<
     selectedSquare,
     turn,
     moveProgrammatically,
+    isPieceGestureInProgress,
+    setIsPieceGestureInProgress,
   ]);
 
   return (
