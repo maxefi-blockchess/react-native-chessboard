@@ -19,6 +19,7 @@ export declare type ChessboardRef = {
     resetAllHighlightedSquares: () => void;
     resetBoard: (fen?: string) => void;
     getState: () => ChessboardState;
+    undo: () => void;
 };
 export declare type ChessboardContextRef = {
     findKing: (type: 'wk' | 'bk') => Square | null;

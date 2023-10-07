@@ -116,6 +116,10 @@ const ChessboardContextProviderComponent = React.forwardRef<
         chessboardRef.current?.resetBoard(params);
         boardOperationsRef.current?.reset();
       },
+      undo: () => {
+        chessboardRef.current?.undo();
+        boardOperationsRef.current?.reset();
+      },
     };
   }, [highlight]);
 

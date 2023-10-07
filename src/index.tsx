@@ -1,5 +1,6 @@
 import React, { useImperativeHandle, useRef } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import Background from './components/chessboard-background';
 import { HighlightedSquares } from './components/highlighted-squares';
@@ -57,16 +58,19 @@ const ChessboardContainerComponent = React.forwardRef<
         chessboardRef.current?.resetAllHighlightedSquares(),
       getState: () => chessboardRef?.current?.getState() as ChessboardState,
       resetBoard: (params) => chessboardRef.current?.resetBoard(params),
+      undo: () => chessboardRef.current?.undo(),
     }),
     []
   );
 
   return (
-    <ChessboardPropsContextProvider {...props}>
-      <ChessboardContextProvider ref={chessboardRef} fen={props.fen}>
-        <Chessboard />
-      </ChessboardContextProvider>
-    </ChessboardPropsContextProvider>
+    <GestureHandlerRootView>
+      <ChessboardPropsContextProvider {...props}>
+        <ChessboardContextProvider ref={chessboardRef} fen={props.fen}>
+          <Chessboard />
+        </ChessboardContextProvider>
+      </ChessboardPropsContextProvider>
+    </GestureHandlerRootView>
   );
 });
 
