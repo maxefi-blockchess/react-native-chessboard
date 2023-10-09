@@ -277,7 +277,7 @@ const Piece = React.memo(
             { translateY: translateY.value },
           ],
         };
-      });
+      }, [selectedSquare.value]);
 
       const underlay = useAnimatedStyle(() => {
         const position = toPosition({

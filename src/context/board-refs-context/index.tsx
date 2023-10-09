@@ -40,6 +40,7 @@ export type ChessboardRef = {
   resetAllHighlightedSquares: () => void;
   resetBoard: (fen?: string) => void;
   getState: () => ChessboardState;
+  undo: () => void;
 };
 
 export type ChessboardContextRef = {
@@ -119,6 +120,10 @@ const BoardRefsContextProviderComponent = React.forwardRef<
       resetBoard: (fen) => {
         chess.reset();
         if (fen) chess.load(fen);
+        setBoard(chess.board());
+      },
+      undo: () => {
+        chess.undo();
         setBoard(chess.board());
       },
     }),
