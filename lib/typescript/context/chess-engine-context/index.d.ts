@@ -2,3 +2,4 @@
 import type { ChessInstance } from 'chess.js';
 declare const ChessEngineContext: import("react").Context<ChessInstance>;
 export { ChessEngineContext };
+//# sourceMappingURL=index.d.ts.map

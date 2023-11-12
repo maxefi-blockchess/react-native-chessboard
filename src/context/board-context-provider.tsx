@@ -43,7 +43,8 @@ const ChessboardContextProviderComponent = React.forwardRef<
   const [board, setBoard] = useState(chess.board());
 
   const highlight = useCallback(
-    (params) => chessboardRef.current?.highlight(params),
+    (params: { square: Square; color?: string; borderColor?: string }) =>
+      chessboardRef.current?.highlight(params),
     []
   );
 

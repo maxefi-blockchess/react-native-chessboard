@@ -5,7 +5,7 @@ import type { ChessPieceRef } from '../../components/piece';
 import type { HighlightedSquareRefType } from '../../components/highlighted-squares/highlighted-square';
 declare const PieceRefsContext: React.Context<React.MutableRefObject<Record<Square, React.MutableRefObject<ChessPieceRef>> | null> | null>;
 declare const SquareRefsContext: React.Context<React.MutableRefObject<Record<Square, React.MutableRefObject<HighlightedSquareRefType>> | null> | null>;
-export declare type ChessboardRef = {
+export type ChessboardRef = {
     move: (_: {
         from: Square;
         to: Square;
@@ -21,7 +21,7 @@ export declare type ChessboardRef = {
     getState: () => ChessboardState;
     undo: () => void;
 };
-export declare type ChessboardContextRef = {
+export type ChessboardContextRef = {
     findKing: (type: 'wk' | 'bk') => Square | null;
     checkIsCheckState: () => void;
     checkIsCheckMateState: () => void;
@@ -30,3 +30,4 @@ declare const BoardRefsContextProvider: React.MemoExoticComponent<React.ForwardR
     children?: React.ReactNode;
 } & React.RefAttributes<ChessboardRef>>>;
 export { PieceRefsContext, SquareRefsContext, BoardRefsContextProvider };
+//# sourceMappingURL=index.d.ts.map

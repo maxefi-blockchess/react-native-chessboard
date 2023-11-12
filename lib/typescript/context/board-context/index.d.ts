@@ -10,3 +10,4 @@ declare const BoardSetterContext: React.Context<React.Dispatch<React.SetStateAct
     color: Player;
 } | null)[][]>>>;
 export { BoardContext, BoardSetterContext };
+//# sourceMappingURL=index.d.ts.map

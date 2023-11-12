@@ -14,3 +14,4 @@ export declare const useChessboardProps: () => import("./index").ChessboardProps
         move?: number | undefined;
     }>;
 };
+//# sourceMappingURL=hooks.d.ts.map

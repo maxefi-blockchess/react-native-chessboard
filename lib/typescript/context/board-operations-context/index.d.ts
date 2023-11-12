@@ -2,7 +2,7 @@ import type { PieceType, Square } from 'chess.js';
 import React from 'react';
 import type Animated from 'react-native-reanimated';
 import type { ChessboardContextRef, ChessboardRef } from '../board-refs-context';
-declare type BoardOperationsContextType = {
+type BoardOperationsContextType = {
     selectableSquares: Animated.SharedValue<Square[]>;
     onMove: (from: Square, to: Square) => void;
     onSelectPiece: (square: Square) => void;
@@ -15,7 +15,7 @@ declare type BoardOperationsContextType = {
     setIsPieceGestureInProgress: (value: boolean) => void;
 };
 declare const BoardOperationsContext: React.Context<BoardOperationsContextType>;
-export declare type BoardOperationsRef = {
+export type BoardOperationsRef = {
     reset: () => void;
 };
 declare const BoardOperationsContextProvider: React.MemoExoticComponent<React.ForwardRefExoticComponent<{
@@ -24,3 +24,4 @@ declare const BoardOperationsContextProvider: React.MemoExoticComponent<React.Fo
     children?: React.ReactNode;
 } & React.RefAttributes<BoardOperationsRef>>>;
 export { BoardOperationsContextProvider, BoardOperationsContext };
+//# sourceMappingURL=index.d.ts.map

@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
-declare type HighlightedSquareProps = {
+type HighlightedSquareProps = {
     style?: StyleProp<ViewStyle>;
 };
-export declare type HighlightedSquareRefType = {
+export type HighlightedSquareRefType = {
     isHighlighted: () => boolean;
     reset: () => void;
     highlight: (_?: {
@@ -13,3 +13,4 @@ export declare type HighlightedSquareRefType = {
 };
 declare const HighlightedSquare: React.MemoExoticComponent<React.ForwardRefExoticComponent<HighlightedSquareProps & React.RefAttributes<HighlightedSquareRefType>>>;
 export { HighlightedSquare };
+//# sourceMappingURL=highlighted-square.d.ts.map

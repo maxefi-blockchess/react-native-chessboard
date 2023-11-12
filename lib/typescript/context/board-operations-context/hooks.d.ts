@@ -17,3 +17,4 @@ declare const useBoardOperations: () => {
     setIsPieceGestureInProgress: (value: boolean) => void;
 };
 export { useBoardOperations };
+//# sourceMappingURL=hooks.d.ts.map

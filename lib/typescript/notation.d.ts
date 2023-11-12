@@ -15,3 +15,4 @@ declare const useReversePiecePosition: () => {
     isWhitePiecePosition: boolean;
 };
 export { useReversePiecePosition };
+//# sourceMappingURL=notation.d.ts.map

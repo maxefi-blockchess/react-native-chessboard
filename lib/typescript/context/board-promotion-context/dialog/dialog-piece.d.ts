@@ -1,7 +1,7 @@
 import type { PieceType } from 'chess.js';
 import React from 'react';
 import type { Player } from '../../../types';
-declare type DialogPieceProps = {
+type DialogPieceProps = {
     index: number;
     width: number;
     type: Player;
@@ -10,3 +10,4 @@ declare type DialogPieceProps = {
 };
 declare const DialogPiece: React.FC<DialogPieceProps>;
 export { DialogPiece };
+//# sourceMappingURL=dialog-piece.d.ts.map

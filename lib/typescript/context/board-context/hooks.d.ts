@@ -8,3 +8,4 @@ declare const useSetBoard: () => import("react").Dispatch<import("react").SetSta
     color: "b" | "w";
 } | null)[][]>>;
 export { useBoard, useSetBoard };
+//# sourceMappingURL=hooks.d.ts.map

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import type { ChessInstance, PieceType } from 'chess.js';
-export declare type BoardPromotionContextType = {
+export type BoardPromotionContextType = {
     showPromotionDialog: (_: {
         type: PromotionDialogType;
         onSelect?: (_: PieceType) => void;
@@ -8,11 +8,12 @@ export declare type BoardPromotionContextType = {
     isPromoting: boolean;
 };
 declare const BoardPromotionContext: React.Context<BoardPromotionContextType>;
-declare type PromotionDialogType = ReturnType<ChessInstance['turn']>;
-export declare type BoardPromotionContextState = {
+type PromotionDialogType = ReturnType<ChessInstance['turn']>;
+export type BoardPromotionContextState = {
     isDialogActive: boolean;
     type?: PromotionDialogType;
     onSelect?: (_: PieceType) => void;
 };
-declare const BoardPromotionContextProvider: React.FC;
+declare const BoardPromotionContextProvider: React.FC<PropsWithChildren>;
 export { BoardPromotionContextProvider, BoardPromotionContext };
+//# sourceMappingURL=index.d.ts.map

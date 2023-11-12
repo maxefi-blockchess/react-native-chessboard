@@ -6,3 +6,4 @@ declare const ChessboardContainer: React.MemoExoticComponent<React.ForwardRefExo
 export { DEFAULT_BOARD_SIZE };
 export type { ChessboardRef, ChessboardProps, ChessMoveInfo, ChessboardState };
 export default ChessboardContainer;
+//# sourceMappingURL=index.d.ts.map

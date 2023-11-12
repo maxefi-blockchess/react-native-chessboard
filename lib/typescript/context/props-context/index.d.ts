@@ -1,14 +1,14 @@
 import type { Move } from 'chess.js';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import type { PieceType } from '../../types';
 import type { ChessboardState } from '../../helpers/get-chessboard-state';
-declare type ChessMoveInfo = {
+type ChessMoveInfo = {
     move: Move;
     state: ChessboardState & {
         in_promotion: boolean;
     };
 };
-declare type ChessboardColorsType = {
+type ChessboardColorsType = {
     white?: string;
     black?: string;
     lastMoveHighlight?: string;
@@ -17,10 +17,10 @@ declare type ChessboardColorsType = {
     suggested?: string;
     text?: string;
 };
-declare type ChessboardDurationsType = {
+type ChessboardDurationsType = {
     move?: number;
 };
-declare type ChessboardProps = {
+type ChessboardProps = {
     /**
      * Enables gestures for chess pieces.
      */
@@ -65,7 +65,7 @@ declare type ChessboardProps = {
      */
     playersColor?: Move['color'];
 };
-declare type ChessboardContextType = ChessboardProps & Required<Pick<ChessboardProps, 'gestureEnabled' | 'withLetters' | 'withNumbers' | 'boardSize'>> & {
+type ChessboardContextType = ChessboardProps & Required<Pick<ChessboardProps, 'gestureEnabled' | 'withLetters' | 'withNumbers' | 'boardSize'>> & {
     pieceSize: number;
 } & {
     colors: Required<ChessboardColorsType>;
@@ -73,6 +73,7 @@ declare type ChessboardContextType = ChessboardProps & Required<Pick<ChessboardP
 };
 declare const DEFAULT_BOARD_SIZE: number;
 declare const ChessboardPropsContext: React.Context<ChessboardContextType>;
-declare const ChessboardPropsContextProvider: React.FC<ChessboardProps>;
+declare const ChessboardPropsContextProvider: React.FC<PropsWithChildren<ChessboardProps>>;
 export { ChessboardPropsContextProvider, ChessboardPropsContext, DEFAULT_BOARD_SIZE, };
 export type { ChessboardProps, ChessMoveInfo };
+//# sourceMappingURL=index.d.ts.map
